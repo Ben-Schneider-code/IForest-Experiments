@@ -1,8 +1,9 @@
 import math
 import random
 import numpy as np
-
-alpha = 0.0
+# [ .75 x , .25 y  ]
+# [.75x , .15y , .1 z]
+alpha = 0.75
 
 def iForest(X, t, ψ):
     Forest = []
@@ -20,8 +21,11 @@ def iTree(X, e, l):
     if e >= l or X.shape[0] <= 1:
         return Node(X.shape[0])
     else:
-        Q = X.shape[1]  # the number of features
-        q = random.randint(0, Q-1)  # select an attribute
+        q=0 # split on x
+        if alpha < random.uniform(0,1):
+            q=1 # split on y
+        
+   
         column = X[:, q]  # get the value for each point along feature q
         min_value = np.amin(column)
         max_value = np.amax(column)
@@ -33,12 +37,7 @@ def iTree(X, e, l):
         return Node(X.shape[0], iTree(XL, e+1, l), iTree(XR, e+1, l), q, p)  # left tree, right tree, split point, split value
 
 def calc_split(min_v,max_v):
-    diff = max_v - min_v
-    range_value = random.uniform(-1.0*alpha, alpha)*diff
-    mid = (min_v + max_v) / 2
-
-    p = mid + range_value
-    return p
+    return random.uniform(min_v, max_v)
 
 def filter_data(X,q,p):
 
