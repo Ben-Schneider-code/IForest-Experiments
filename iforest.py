@@ -3,7 +3,7 @@ import random
 import numpy as np
 # [ .75 x , .25 y  ]
 # [.75x , .15y , .1 z]
-alpha = 0.75
+alpha = 0.66666
 
 def iForest(X, t, ψ):
     Forest = []
